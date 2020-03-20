@@ -1,0 +1,8 @@
+[2020-03-19 06:47:39] grafana-grafana-6.6.0.tgz load successfully.
+[2020-03-19 06:47:41] quay.io-coreos-k8s-prometheus-adapter-amd64-v0.5.0.tgz load successfully.
+[2020-03-19 06:47:41] quay.io-coreos-kube-rbac-proxy-v0.4.1.tgz load successfully.
+[2020-03-19 06:47:42] quay.io-coreos-kube-state-metrics-v1.9.5.tgz load successfully.
+[2020-03-19 06:47:44] quay.io-coreos-prometheus-operator-v0.37.0.tgz load successfully.
+[2020-03-19 06:47:46] quay.io-prometheus-alertmanager-v0.20.0.tgz load successfully.
+[2020-03-19 06:47:46] quay.io-prometheus-node-exporter-v0.18.1.tgz load successfully.
+[2020-03-19 06:47:50] quay.io-prometheus-prometheus-v2.15.2.tgz load successfully.
