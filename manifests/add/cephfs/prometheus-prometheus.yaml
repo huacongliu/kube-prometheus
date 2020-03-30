@@ -27,10 +27,24 @@ spec:
   secrets: 
   - etcd-certs 
   securityContext:
-    fsGroup: 2000
-    runAsNonRoot: true
-    runAsUser: 1000
+    #fsGroup: 2000
+    #runAsNonRoot: true
+    #runAsUser: 1000
+    fsGroup: 0
+    runAsNonRoot: false
+    runAsUser: 0
   serviceAccountName: prometheus-k8s
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
   version: v2.15.2
+  additionalScrapeConfigs:
+    name: additional-configs
+    key: prometheus-additional.yaml
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: cephfs-promethues
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 50Gi

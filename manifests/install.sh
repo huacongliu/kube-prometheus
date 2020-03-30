@@ -1,7 +1,7 @@
 #git clone https://github.com/chinaboy007/kube-prometheus
 #cd kube-prometheus
 echo "1.start load image"
-cd add
+cd add/images
 sh image-load.sh --images-path images-2020-03-20
 
 cd ..
@@ -12,7 +12,7 @@ kubectl get secret etcd-certs -n monitoring >/dev/null 2>&1
 if [ $? -ne 0 ];then
    kubectl -n monitoring create secret generic etcd-certs --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.crt  --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.key  --from-file=/etc/kubernetes/pki/etcd/ca.crt 
 else
-   "secret etcd-certs created"
+   echo "secret etcd-certs created"
 fi
 
 ###开始安装kube-prometheus

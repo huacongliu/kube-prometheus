@@ -6,6 +6,14 @@ metadata:
   name: k8s
   namespace: monitoring
 spec:
+  retention: "24h"
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: nfs-client-prometheus
+        resources:
+          requests:
+            storage: 1Gi
   alerting:
     alertmanagers:
     - name: alertmanager-main
