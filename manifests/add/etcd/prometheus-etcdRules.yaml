@@ -8,7 +8,7 @@ metadata:
   namespace: monitoring
 spec:
   groups:
-  - name: etcd
+  - name: etcd.rules
     rules:
     - alert: EtcdClusterUnavailable
       annotations:

@@ -3,41 +3,57 @@
 echo "1.start load image"
 cd add/images
 sh image-load.sh --images-path images-2020-03-20
+cd ../..
 
-cd ..
-###安装etcd-certs secret
-echo ""
-echo "2.create etcd-certs secret"
-kubectl get secret etcd-certs -n monitoring >/dev/null 2>&1
-if [ $? -ne 0 ];then
-   kubectl -n monitoring create secret generic etcd-certs --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.crt  --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.key  --from-file=/etc/kubernetes/pki/etcd/ca.crt 
-else
-   echo "secret etcd-certs created"
-fi
 
 ###开始安装kube-prometheus
 echo ""
-echo "3.start install kube-prometheus"
+echo "2.start install kube-prometheus"
 kubectl create -f setup >/dev/null 2>&1 
 until kubectl get servicemonitors --all-namespaces ; do date; sleep 1; echo ""; done
 kubectl create -f ./ >/dev/null 2>&1
 
-###配置kube-controller kube-scheduler kube-etcd 等监控
+###配置kube-controller kube-scheduler等监控
 cd add
 echo ""
-echo "4.config kube-controller kube-scheduler kube-etcd mon"
+echo "3.config kube-controller kube-scheduler servicemonitor"
 sh change.sh
 #echo "installing,please wait 2  minutes"
 #sleep 120
+cd ..
+
+###安装etcd servicemonitor
+cd etcd
+echo ""
+echo "4.config etcd servicemonitor"
+sh install.sh
+cd ..
+
+
+###启用nfs存储
+echo "5.启用nfs存储"
+cd nfs-client
+sh install.sh
+cd ..
+
+
+
+###配置自动发现
+echo "6.配置自动发现"
+cd autofind
+sh install.sh
+cd ..
+
+
 
 ###为grafana prometheus alert-manager服务配置NodePort
 echo ""
-echo "5.config nodeport for grafana prometheus alert-manager ..."
+echo "7.config nodeport for grafana prometheus alert-manager ..."
 sh nodeport.sh
 echo ""
 
 ###grafana prometheus alert-manager服务配置nginx-ingress
-echo "6.config ingress for grafana prometheus alert-manager ..."
+echo "8.config ingress for grafana prometheus alert-manager ..."
 kubectl get pod |grep ingress >/dev/null 2>&1
 if [ $? -eq 0 ];then
    namespace=default

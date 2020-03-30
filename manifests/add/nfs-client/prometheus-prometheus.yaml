@@ -6,14 +6,6 @@ metadata:
   name: k8s
   namespace: monitoring
 spec:
-  retention: "24h"
-  storage:
-    volumeClaimTemplate:
-      spec:
-        storageClassName: nfs-client-prometheus
-        resources:
-          requests:
-            storage: 1Gi
   alerting:
     alertmanagers:
     - name: alertmanager-main
@@ -42,3 +34,17 @@ spec:
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
   version: v2.15.2
+  ###add by chinaboy007
+  additionalScrapeConfigs:
+    name: additional-configs
+    key: prometheus-additional.yaml
+  secrets:
+  - etcd-certs
+  retention: "24h"
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: nfs-client-prometheus
+        resources:
+          requests:
+            storage: 1Gi
