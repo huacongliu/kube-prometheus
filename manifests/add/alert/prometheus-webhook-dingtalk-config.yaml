@@ -1,0 +1,24 @@
+apiVersion: v1
+data:
+  config.yml: >-
+    targets:
+      webhook2:
+        url: https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc
+      webhook_legacy:
+        url: https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc
+        message:
+          title: '{{ template "default.title" . }}'
+          text: '{{ template "default.content" . }}'
+      webhook_mention_all:
+        url: https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc
+        mention:
+          all: true
+      webhook_mention_users:
+        url: https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc
+        mention:
+          mobiles: ['18688960975']
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dingding
+  namespace: monitoring

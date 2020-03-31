@@ -1,11 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: test-prome-pvc
+  name: grafana 
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Mi
-  storageClassName: nfs-client-prometheus
+      storage: 1Gi
+  storageClassName: nfs-client

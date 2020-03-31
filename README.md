@@ -25,3 +25,12 @@ git https://github.com/chinaboy007/kube-prometheus.git
 cd kube-prometheus/manifests
 
 sh install.sh
+
+
+启用数据持久化
+cd add
+sh storage.sh
+
+
+一键卸载：
+sh uninstall.sh

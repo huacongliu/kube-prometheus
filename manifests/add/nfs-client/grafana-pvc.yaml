@@ -4,7 +4,7 @@ metadata:
   name: grafana 
   namespace: monitoring
   annotations:
-    volume.beta.kubernetes.io/storage-class: "nfs-client-prometheus"
+    volume.beta.kubernetes.io/storage-class: "nfs-client"
 spec:
   accessModes:
     - ReadWriteMany

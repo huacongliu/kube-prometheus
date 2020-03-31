@@ -1,9 +1,12 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dingtalk-hook
-  namespace: kube-ops
+  namespace: monitoring
 spec:
+  selector:
+    matchLabels:
+      app: dingtalk-hook
   template:
     metadata:
       labels:
@@ -11,35 +14,42 @@ spec:
     spec:
       containers:
       - name: dingtalk-hook
-        image: cnych/alertmanager-dingtalk-hook:v0.2
+        image: timonwong/prometheus-webhook-dingtalk:v1.2.2
+        args:
+          - '--web.listen-address=0.0.0.0:8060'
+          - '--log.level=info'
+          - '--config.file=/etc/prometheus-webhook-dingtalk/config.yml'
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 5000
-          name: http
-        env:
-        - name: ROBOT_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: dingtalk-secret
-              key: token
+        - name: http
+          containerPort: 8060
         resources:
           requests:
-            cpu: 50m
-            memory: 100Mi
+            cpu: 100m
+            memory: 32Mi
           limits:
-            cpu: 50m
-            memory: 100Mi
-      
+            cpu: 200m
+            memory: 64Mi
+        volumeMounts:
+          - mountPath: /etc/prometheus-webhook-dingtalk/
+            name: config-yml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: dingding
+          name: config-yml
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: dingtalk-hook
-  namespace: kube-ops
+  namespace: monitoring
 spec:
+  ports:
+    - port: 8060
+      protocol: TCP
+      targetPort: 8060
+      name: http
   selector:
     app: dingtalk-hook
-  ports:
-  - name: hook
-    port: 5000
-    targetPort: http
+  type: ClusterIP

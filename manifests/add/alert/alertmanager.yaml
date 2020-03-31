@@ -8,14 +8,22 @@ global:
 route:
   group_by: ['job', 'severity']
   group_wait: 30s
-  group_interval: 5m
-  repeat_interval: 12h
+  group_interval: 1m
+  repeat_interval: 5m
   receiver: default
   routes:
   - match:
       #alertname:  CPUThrottlingHigh#alertname就是可以匹配到自定义rule中alertname
       alertname: ^(host_cpu_usage|node_filesystem_free|host_down)$
     receiver: default
+  - receiver: webhook
+    group_wait: 30s
+    match:
+      severity: none
+  - receiver: webhook
+    group_wait: 30s
+    match_re:
+      severity: none|critical
 receivers:
 - name: default
   email_configs:
@@ -23,5 +31,5 @@ receivers:
     send_resolved: true
 - name: 'webhook'
   webhook_configs:
-  - url: 'http://dingtalk-hook.kube-ops:5000'
+  - url: 'http://dingtalk-hook:8060/dingtalk/webhook2/send'
     send_resolved: true

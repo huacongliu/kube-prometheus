@@ -44,7 +44,7 @@ spec:
   storage:
     volumeClaimTemplate:
       spec:
-        storageClassName: nfs-client-prometheus
+        storageClassName: nfs-client
         resources:
           requests:
             storage: 1Gi
