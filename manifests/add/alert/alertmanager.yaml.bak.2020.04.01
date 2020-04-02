@@ -18,6 +18,7 @@ route:
   - alertname
   - cluster
   - service
+  #group_by: ['job', 'severity']
   group_wait: 30s
   group_interval: 1m  # 当第一个通知发送，等待多久发送压缩的警报
   repeat_interval: 5m #如果报警发送成功, 等待多久重新发送一次
@@ -25,21 +26,14 @@ route:
   - receiver: wechat 
     match_re:
       severity: critical
-  - receiver: email 
+  - receiver: dingtalk 
     #match:
     #  alertname: CPUThrottlingHigh
     match_re:
-      severity: warning 
+      severity: critical
   - receiver: "null"
     match:
       alertname: Watchdog
-
-inhibit_rules:
-  - source_match:
-      severity: 'critical'
-    target_match:
-      severity: 'warning'
-    #equal: ['alertname', 'dev', 'instance']
 
 receivers:
 - name: email 

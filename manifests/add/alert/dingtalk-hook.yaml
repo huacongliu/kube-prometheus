@@ -33,11 +33,19 @@ spec:
         volumeMounts:
           - mountPath: /etc/prometheus-webhook-dingtalk/
             name: config-yml
+        volumeMounts:
+          - mountPath: /etc/prometheus-webhook-dingtalk/templates/legacy 
+            name: wechat-tmpl
       volumes:
         - configMap:
             defaultMode: 420
             name: dingding
           name: config-yml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: wechat 
+          name: wechat-tmpl
 ---
 apiVersion: v1
 kind: Service
