@@ -33,7 +33,7 @@
 
 #开始安装：
 
-git https://github.com/chinaboy007/kube-prometheus.git
+git clone https://github.com/chinaboy007/kube-prometheus.git
 
 cd kube-prometheus/manifests
 
