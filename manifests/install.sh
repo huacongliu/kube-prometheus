@@ -1,6 +1,10 @@
 #git clone https://github.com/chinaboy007/kube-prometheus
 #cd kube-prometheus
 
+online() {
+   echo "开始在线安装，请确保node节点能连外网哦"
+}
+
 offline(){
 echo "1.开始下载离线镜像"
 md5key=`md5sum node.conf |awk '{print $1}'`
@@ -19,13 +23,20 @@ else
 fi
 }
 
-
-read -p  "请选择安装方式:" a
-if [ X"$a" ==  X"y" ];then
-    offline
-else
-    echo "开始在线安装，请确保node节点能连外网哦"
-fi
+echo "------------------------"
+echo "1.在线安装(node节点访问外网下载镜像)"
+echo "2.离线安装(node节点离线加载镜像，推荐)"
+echo "------------------------"
+read -p  "请选择安装方式：(1 or 2):" a
+case $a in 
+   1)
+     online;;
+   2)
+     offline;;
+   *)
+     echo "[ERROR!]只能输入1或2"
+     exit 1
+esac
 
 
 ###开始安装kube-prometheus

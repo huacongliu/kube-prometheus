@@ -35,5 +35,5 @@ spec:
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 192.168.227.127
+            server: 192.168.227.127 
             path: /data/nfs-client
