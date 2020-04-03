@@ -16,6 +16,7 @@ else
       echo "开始在node节点安装kube-prometheus离线镜像"
       ssh $i "cd /tmp/images;sh image-load.sh"
    done
+fi
 }
 
 
