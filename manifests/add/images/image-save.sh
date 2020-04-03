@@ -61,7 +61,8 @@ do
         logger "${i} pull successfully."
     fi
 
-    docker save ${i} | gzip >images-$(date +"%Y-%m-%d")/$(echo $i |sed "s#/#-#g; s#:#-#g").tgz
+    #docker save ${i} | gzip >images-$(date +"%Y-%m-%d")/$(echo $i |sed "s#/#-#g; s#:#-#g").tgz
+    docker save ${i} | gzip >images-prometheus-optrator/$(echo $i |sed "s#/#-#g; s#:#-#g").tgz
 
     if [ $? -ne 0 ]; then
         logger "${i} save failed."
