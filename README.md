@@ -1,6 +1,6 @@
 # kube-prometheus
 
-## 概述：
+## 概述
 
 本项目基于最新https://github.com/coreos/kube-prometheus开发
 
@@ -9,7 +9,7 @@
 支持kubeadm方式安装的k8s,二进制方式安装的未测试
 
 
-## 主要功能：
+## 主要功能
 
 1.支持数据持久化
 
@@ -32,7 +32,7 @@
 
 
 
-## 开始安装：
+## 开始安装
 
 git clone https://github.com/chinaboy007/kube-prometheus.git
 
