@@ -32,7 +32,7 @@
 
 
 
-## 开始安装
+## 一键安装
 
 ```bash 
 git clone https://github.com/chinaboy007/kube-prometheus.git
