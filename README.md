@@ -39,7 +39,9 @@ git clone https://github.com/chinaboy007/kube-prometheus.git
 cd kube-prometheus/manifests
 sh install.sh```
 
+
 ## 一键卸载
+
 ```bash
 cd kube-prometheus/manifests
 sh uninstall.sh```
