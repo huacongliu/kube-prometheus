@@ -62,6 +62,7 @@ cd ..
 
 ###开始配置nfs-client-provisioner动态存储
 echo 
+echo "启用nfs-client-provisioner动态存储,配置prometheus granafa数据持久化"
 cd nfs-client
 sh install.sh
 cd ..
