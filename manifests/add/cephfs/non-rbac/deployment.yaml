@@ -20,10 +20,7 @@ spec:
         env:
         - name: PROVISIONER_NAME
           value: ceph.com/cephfs
-        - name: PROVISIONER_SECRET_NAMESPACE
-          value: default
         command:
-        - "/usr/local/bin/cephfs-provisioner"
+          - "/usr/local/bin/cephfs-provisioner"
         args:
-        - "-id=cephfs-provisioner-1"
-      serviceAccount: cephfs-provisioner
+          - "-id=cephfs-provisioner-1"
