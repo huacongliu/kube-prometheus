@@ -1,11 +1,12 @@
 #!/bin/bash
-
 input() {
-read -p "please input nfs server ip:" nfs_serer_ip
-read -p "please input nfs server path:" nfs_serer_path
+read -p "please input nfs server ip:" NFS_SERVER_IP 
+read -p "please input nfs server path:" NFS_SERVER_PATH
 
-sed -i "s@192.168.227.127@${nfs_serer_ip}@g" deployment.yaml
-sed -i "s@/data/nfs-client@${nfs_serer_path}@g" deployment.yaml 
+cp -f deployment_templ.yaml  deployment.yaml
+cp -f rbac_templ.yaml rbac.yaml
+sed -i "s@NFS_SERVER_IP@${NFS_SERVER_IP}@g" deployment.yaml
+sed -i "s@NFS_SERVER_PATH@${NFS_SERVER_PATH}@g" deployment.yaml 
 }
 
 nfs_client_provisioner(){

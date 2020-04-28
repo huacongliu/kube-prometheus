@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nfs-client-provisioner
   # replace with namespace where provisioner is deployed
-  namespace: monitoring
+  namespace: default
 spec:
   replicas: 1
   strategy:
@@ -29,11 +29,11 @@ spec:
             - name: PROVISIONER_NAME
               value: fuseim.pri/ifs
             - name: NFS_SERVER
-              value: 10.32.3.58 
+              value: NFS_SERVER_IP 
             - name: NFS_PATH
-              value: /data/nfs
+              value: NFS_SERVER_PATH 
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 10.32.3.58 
-            path: /data/nfs
+            server: NFS_SERVER 
+            path: NFS_SERVER_PATH

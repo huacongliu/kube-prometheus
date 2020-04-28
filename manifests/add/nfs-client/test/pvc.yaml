@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: grafana 
+  name: wanggang-test 
   namespace: monitoring
 spec:
   accessModes:
