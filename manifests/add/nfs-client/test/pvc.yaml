@@ -1,8 +1,10 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: wanggang-test 
+  name: wanggang-test3 
   namespace: monitoring
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "nfs-clinet"
 spec:
   accessModes:
     - ReadWriteMany

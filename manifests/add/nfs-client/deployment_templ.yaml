@@ -35,5 +35,5 @@ spec:
       volumes:
         - name: nfs-client-root
           nfs:
-            server: NFS_SERVER 
+            server: NFS_SERVER_IP 
             path: NFS_SERVER_PATH
