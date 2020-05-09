@@ -5,8 +5,9 @@
 **很多地方提到Prometheus Operator是kubernetes集群监控的终极解决方案，但是目前Prometheus Operator已经不包含完整功能，完整的解决方案已经变为kube-prometheus。项目地址为：https://github.com/coreos/kube-prometheus
 本项目基于最新kube-prometheus开发,解决了kube-prometheus安装部署后无法监控kube-controller kube-scheduse kube-etcd，无法告警、无法数据持久化等各种问题，为小白用户提供了极大便利。**
 
-
-
+####
+    QQ讨论群:1911775
+    
 
 ## 主要功能
 
