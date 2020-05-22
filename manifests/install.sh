@@ -75,17 +75,11 @@ cd autofind
 sh install.sh
 cd ..
 
-###开始配置nfs-client-provisioner动态存储
-echo 
-echo "启用nfs-client-provisioner动态存储,配置prometheus granafa数据持久化"
-cd nfs-client
-sh install.sh
-cd ..
 
 
 ###为grafana prometheus alert-manager服务配置NodePort
 echo
-echo "6.配置grafana prometheus alert-manager ui通过nodeport访问"
+echo "5.配置grafana prometheus alert-manager ui通过nodeport访问"
 sh nodeport.sh
 echo "---------------------------------------------------"
 echo "install successful!check..."
@@ -98,7 +92,7 @@ echo ""
 
 
 ###grafana prometheus alert-manager服务配置nginx-ingress
-echo "7.配置grafana prometheus alert-manager ui通过nginx-ingress访问"
+echo "6.配置grafana prometheus alert-manager ui通过nginx-ingress访问"
 kubectl get pod |grep ingress >/dev/null 2>&1
 if [ $? -eq 0 ];then
    namespace=default
