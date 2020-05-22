@@ -51,3 +51,11 @@ sh install.sh
 cd kube-prometheus/manifests
 sh uninstall.sh
 ```
+
+#### 数据持久化
+
+##### 启用nfs-client-provisioner动态存储,并配置prometheus granafa数据持久化
+```bash
+cd kube-prometheus/manifests/add/nfs-client
+sh install.sh
+```
