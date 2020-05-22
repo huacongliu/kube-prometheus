@@ -10,11 +10,14 @@ sed -i "s@NFS_SERVER_PATH@${NFS_SERVER_PATH}@g" deployment.yaml
 }
 
 nfs_client_provisioner(){
-NAMESPACE=monitoring
+NAMESPACE=default
 sed -i'' "s/namespace:.*/namespace: $NAMESPACE/g" rbac.yaml deployment.yaml
 kubectl apply  -f rbac.yaml
 kubectl apply  -f deployment.yaml
 kubectl apply  -f storageclass.yaml
+}
+
+persist(){
 kubectl apply  -f grafana-pvc.yaml
 kubectl delete -f grafana-deployment.yaml
 kubectl apply  -f grafana-deployment.yaml
@@ -30,6 +33,8 @@ kubectl get pvc -n monitoring
 }
 
 
+
 input
 nfs_client_provisioner
+persist
 pvc_check
