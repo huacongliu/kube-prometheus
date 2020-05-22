@@ -20,6 +20,21 @@ else
       echo "开始在node节点安装kube-prometheus离线镜像"
       ssh $i "cd /tmp/images;sh image-load.sh"
    done
+   ###传送node-exporter nfs-client-provisioner离线镜像包到master节点
+fi
+md5key=`md5sum master.conf |awk '{print $1}'`
+if [ "$md5key" == "da905b64ee9b52c2add269a3e79a2e5e" ];then
+    echo "[ERROR!],请先编辑离线安装配置文件master.conf,将master节点IP替换成自己的"
+    exit 1
+else
+   for i in `cat master.conf`
+   do
+      echo "传送node-export镜像包到master节点"
+      scp -r add/images $i:/tmp/
+      echo "----------------------------------"
+      echo "开始在node节点安装node-exporter nfs-client-provisioner离线镜像"
+      ssh $i "cd /tmp/images/images-prometheus-optrator;docker load -i quay.io-external_storage-nfs-client-provisioner-latest.tgz;docker load -i quay.io-prometheus-node-exporter-v0.18.1.tgz"
+   done
 fi
 }
 
