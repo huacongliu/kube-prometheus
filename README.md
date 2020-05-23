@@ -68,7 +68,7 @@ sh install.sh
 kubectl describe pod  prometheus-k8s-0 -n monitoring |grep prometheus:v |awk -F: '{print $3}'
 ```
 
-#### 2.升级
+#### 2.升级到2.17.2
 ```bash
 cd kube-prometheus/manifests/add/upgrade
 sh upgrade.sh
