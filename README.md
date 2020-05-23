@@ -61,7 +61,14 @@ sh install.sh
 ```
 #### 版本升级
 
-###### 如果之前已安装过kube-prometheus，版本可能是2.15.2，如果想升级到2.17.2，请执行如下命令
+###### 如果之前已安装过kube-prometheus，如果想升级到2.17.2，请执行如下命令
+
+##### 1.查看当前版本
+```bash
+kubectl describe pod  prometheus-k8s-0 -n monitoring |grep prometheus:v |awk -F: '{print $3}'
+```
+
+#### 2.升级
 ```bash
 cd kube-prometheus/manifests/add/upgrade
 sh upgrade.sh
