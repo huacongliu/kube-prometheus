@@ -1,0 +1,34 @@
+global:
+  resolve_timeout: 5m
+route:
+  group_by: ['instance']
+  group_wait: 10m
+  group_interval: 10s
+  repeat_interval: 10m
+  receiver: 'web.hook.prometheusalert'
+  routes:
+  - receiver: 'prometheusalert-weixin'
+    group_wait: 10s
+    match:
+      level: '1'
+  - receiver: 'prometheusalert-dingding'
+    group_wait: 10s
+    match:
+      level: '2'
+  - receiver: 'prometheusalert-all'
+    group_wait: 10s
+    match:
+      level: '3'
+receivers:
+- name: 'web.hook.prometheusalert'
+  webhook_configs:
+  - url: 'http://prometheus-alert-center:8080/prometheus/alert'
+- name: 'prometheusalert-weixin'
+  webhook_configs:
+  - url: 'http://prometheus-alert-center:8080/prometheus/router?wxurl=https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=fe1c5e60-2010-4b16-a217-ccac2d4ca623'
+- name: 'prometheusalert-dingding'
+  webhook_configs:
+  - url: 'http://prometheus-alert-center:8080/prometheus/router?ddurl=https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc'
+- name: 'prometheusalert-all'
+  webhook_configs:
+  - url: 'http://prometheus-alert-center:8080/prometheus/router?wxurl=https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=fe1c5e60-2010-4b16-a217-ccac2d4ca623&ddurl=https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc&phone=18688960975'

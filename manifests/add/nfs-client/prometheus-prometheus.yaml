@@ -11,7 +11,7 @@ spec:
     - name: alertmanager-main
       namespace: monitoring
       port: web
-  image: quay.io/prometheus/prometheus:v2.15.2
+  image: quay.io/prometheus/prometheus:v2.17.2
   nodeSelector:
     kubernetes.io/os: linux
   podMonitorNamespaceSelector: {}
@@ -33,7 +33,7 @@ spec:
   serviceAccountName: prometheus-k8s
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
-  version: v2.15.2
+  version: v2.17.2
   ###add by chinaboy007
   additionalScrapeConfigs:
     name: additional-configs
@@ -47,4 +47,4 @@ spec:
         storageClassName: nfs-client
         resources:
           requests:
-            storage: 1Gi
+            storage: 10Gi

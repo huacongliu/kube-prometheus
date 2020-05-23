@@ -34,7 +34,7 @@ kubectl get pvc -n monitoring
 
 
 
-input
-nfs_client_provisioner
+#input
+#nfs_client_provisioner
 persist
 pvc_check
