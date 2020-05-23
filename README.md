@@ -54,12 +54,12 @@ sh uninstall.sh
 
 #### 数据持久化
 
-##### 启用nfs-client-provisioner动态存储,并配置prometheus granafa数据持久化
+###### 启用nfs-client-provisioner动态存储,并配置prometheus granafa数据持久化
 ```bash
 cd kube-prometheus/manifests/add/nfs-client
 sh install.sh
 ```
-#### prometheus升级
+#### 版本升级
 
 ###### 如果之前已安装过kube-prometheus，版本可能是2.15.2，如果想升级到2.17.2，请执行如下命令
 ```bash
