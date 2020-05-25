@@ -74,4 +74,11 @@ cd kube-prometheus/manifests/add/upgrade
 sh upgrade.sh
 ```
 
+#### 开启企业微信、钉钉告警
+###### 
+```bash
+cd kube-prometheus/manifests/add/prometheusalert
+先编辑conf.txt,填入相应的key或token，
+再执行sh install.sh
+```
 
