@@ -22,5 +22,5 @@ kubectl create secret generic alertmanager-main -n monitoring --from-file=alertm
 
 
 modify
-#change
-#sh check.sh
+change
+sh check.sh
