@@ -5,6 +5,7 @@ kubectl delete -f prometheus-prometheus.yaml
 kubectl delete pvc prometheus-k8s-db-prometheus-k8s-0 -n monitoring 
 kubectl delete pvc prometheus-k8s-db-prometheus-k8s-1 -n monitoring 
 kubectl delete pvc grafana -n monitoring 
+kubectl delete sc nfs-client
 
 sleep 2
 echo ----------------------------
