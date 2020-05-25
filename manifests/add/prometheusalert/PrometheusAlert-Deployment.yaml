@@ -11,7 +11,7 @@ data:
     #开启JSON请求
     copyrequestbody = true
     #告警消息标题
-    title=PrometheusAlert
+    title=prometheus
     #链接到告警平台地址
     GraylogAlerturl=http://graylog.org
     #钉钉告警 告警logo图标地址
