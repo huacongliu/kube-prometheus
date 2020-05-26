@@ -5,7 +5,7 @@ route:
   group_wait: 10m
   group_interval: 10s
   repeat_interval: 10m
-  #receiver: 'web.hook.prometheusalert'
+  receiver: 'web.hook.prometheusalert'
   routes:
   - receiver: 'prometheusalert-weixin'
     group_wait: 10s
