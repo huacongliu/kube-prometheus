@@ -1,0 +1,108 @@
+apiVersion: v1
+data:
+  dingding.tmpl: >-
+    {{ define "__subject" }}[{{ .Status | toUpper }}[{{ if eq .Status "firing"
+    }}告警{{ else }}恢复{{ end }}] {{
+    .GroupLabels.SortedPairs.Values | join " " }} {{ if gt (len .CommonLabels)
+    (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{
+    .Values | join " " }}{{ end }}){{ end }}{{ end }}
+
+    {{ define "__alertmanagerURL" }}{{ .ExternalURL }}/#/alerts?receiver={{
+    .Receiver }}{{ end }}
+
+
+    {{ define "__text_alert_list" }}
+
+    {{ if eq .Status "firing" }}
+
+    {{ range .Alerts.Firing }}
+
+    **告警**
+
+    {{ range .Labels.SortedPairs }}
+
+    {{ if eq .Name "cluster"}}Cluster: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "namespace"}}Namespace: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "deployment"}}App_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "container_name"}}contain_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "pod"}}pod_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "daemonset"}}daemonset_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "statefulset"}}statefulset_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "severity"}}Severity: {{ .Value|markdown|html }}{{ end }}
+
+    {{ end }}
+
+    **告警详情**
+
+    {{ range .Annotations.SortedPairs }}
+
+    {{ if eq .Name "description"}}description: {{ .Value|markdown|html }}{{ end }}
+    {{ if eq .Name "message"}}description: {{ .Value|markdown|html }}{{ end }}
+
+    {{ end }}{{ end }}
+
+
+    {{ else if eq .Status "resolved" }}
+
+    {{ range .Alerts.Resolved }}
+
+    **告警**
+
+    {{ range .Labels.SortedPairs }}
+
+    {{ if eq .Name "cluster"}}Cluster: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "namespace"}}Namespace: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "deployment"}}App_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "container_name"}}contain_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "pod"}}pod_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "daemonset"}}daemonset_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "statefulset"}}statefulset_name: {{ .Value|markdown|html }}{{ end }}
+
+    {{ if eq .Name "severity"}}Severity: {{ .Value|markdown|html }}{{ end }}
+
+    {{ end }}
+
+    **详情**
+
+    {{ range .Annotations.SortedPairs }}
+
+    {{ if eq .Name "description"}}description: {{ .Value|markdown|html }}{{ end }}
+    {{ if eq .Name "message"}}description: {{ .Value|markdown|html }}{{ end }}
+
+    {{ end }}
+
+    {{ end }}
+
+    {{ end }}
+
+    {{ end }}
+
+
+
+    {{ define "ding.link.title" }}{{ template "__subject" . }}{{ end }}
+
+    {{ define "ding.link.content" }}#### [{{ if eq .Status "firing" }}告警:{{
+    .Alerts.Firing | len }}{{ else }}恢复:{{ end }}] **{{ index .GroupLabels
+    "alertname" }}**
+
+    {{ template "__text_alert_list" . }}
+
+    {{ end }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dingding
+  namespace: monitoring

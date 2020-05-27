@@ -1,0 +1,22 @@
+#coding: utf-8
+import json,urllib2
+url = "https://oapi.dingtalk.com/robot/send?access_token=cee80c5dfff988b20ec626f54ac2fd099dfd9c227e1cfea778b1dfffa1025acc"
+header = {
+    "Content-Type": "application/json",
+    "charset": "utf-8"
+    }
+data = {
+     "msgtype": "text",
+        "text": {
+            "content": {
+            "title": "prometheus"
+            }
+        },
+     "at": {
+            "isAtAll":True   # at为非必须
+         }
+    }
+sendData = json.dumps(data)
+request = urllib2.Request(url,data = sendData,headers = header)
+urlopen = urllib2.urlopen(request)
+print urlopen.read()
