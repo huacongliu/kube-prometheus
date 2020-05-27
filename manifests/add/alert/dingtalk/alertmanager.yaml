@@ -22,16 +22,10 @@ route:
       alertname: Watchdog
 receivers:
 - name: 'dingtalk'
-  email_configs:
-  - to: "xxx@xxxxx.com"
-    send_resolved: true
-    from: "xxx@xxxxx.com"
-    smarthost:  "smtp.xxxxx.com:25"
-    auth_username: "xxx@xxxxx.com"
-    auth_password: "1qwe1234qwe"
   webhook_configs:
   - url: 'http://dingtalk-hook:8060/dingtalk/webhook1/send'
     send_resolved: true  
+- name: 'null'
 
 inhibit_rules:
   - source_match:
