@@ -21,7 +21,7 @@ spec:
           - '--log.level=info'
           - '--web.enable-lifecycle'
           - '--web.enable-ui'
-          - '--template.file=/etc/prometheus-webhook-dingtalk/templates/dingding.tmpl'
+          - '--template.file=/etc/prometheus-webhook-dingtalk/templates/dingtalk.tmpl'
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
