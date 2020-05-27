@@ -1,8 +1,0 @@
-[2020-04-01 21:40:27] grafana-grafana-6.6.0 load successfully.
-[2020-04-01 21:40:28] quay.io-coreos-k8s-prometheus-adapter-amd64-v0.5.0 load successfully.
-[2020-04-01 21:40:29] quay.io-coreos-kube-rbac-proxy-v0.4.1 load successfully.
-[2020-04-01 21:40:29] quay.io-coreos-kube-state-metrics-v1.9.5 load successfully.
-[2020-04-01 21:40:58] grafana-grafana-6.6.0 load successfully.
-[2020-04-01 21:40:59] quay.io-coreos-k8s-prometheus-adapter-amd64-v0.5.0 load successfully.
-[2020-04-01 21:41:00] quay.io-coreos-kube-rbac-proxy-v0.4.1 load successfully.
-[2020-04-01 21:41:01] quay.io-coreos-kube-state-metrics-v1.9.5 load successfully.

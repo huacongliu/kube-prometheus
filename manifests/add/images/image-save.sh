@@ -48,7 +48,7 @@ fi
 
 #set -e -x
 
-mkdir -p images-$(date +"%Y-%m-%d")
+#mkdir -p images-$(date +"%Y-%m-%d")
 #cd images-$(date +"%Y-%m-%d")
 
 for i in $(cat ${list}); 
