@@ -23,11 +23,11 @@ metadata:
     k8s-app: etcd
 subsets:
 - addresses:
-  - ip: 10.15.4.250 
+  - ip: 10.32.3.57 
     nodeName: etcd-k8s-master
-  - ip: 10.15.4.251
+  - ip: 10.32.3.58
     nodeName: etcd-k8s-master
-  - ip: 10.15.4.252
+  - ip: 10.32.3.59
     nodeName: etcd-k8s-master
   ports:
   - name: port
