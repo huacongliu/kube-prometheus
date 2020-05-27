@@ -1,5 +1,6 @@
 global:
   resolve_timeout: 5m
+  title: prometheus
 # 自定义 通知的模板的 目录 或者 文件.
 #templates:
 #  - "/etc/alertmanager/config/dingtalk.tmpl" ##注意：此路径不能更改 
@@ -8,10 +9,17 @@ route:
   - alertname
   - cluster
   - service
-  group_wait: 10s
-  group_interval: 5m  # 当第一个通知发送，等待多久发送压缩的警报
-  repeat_interval: 5m #如果报警发送成功, 等待多久重新发送一次
+  group_wait: 10m
+  group_interval: 10s  # 当第一个通知发送，等待多久发送压缩的警报
+  repeat_interval: 10m #如果报警发送成功, 等待多久重新发送一次
   receiver: dingtalk 
+  routes:
+  - receiver: dingtalk 
+    match_re:
+      severity: critical
+  - receiver: "null"
+    match:
+      alertname: Watchdog
 receivers:
 - name: 'dingtalk'
   email_configs:

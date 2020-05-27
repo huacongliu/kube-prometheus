@@ -1,106 +1,55 @@
 apiVersion: v1
 data:
   dingding.tmpl: >-
-    {{ define "__subject" }}[{{ .Status | toUpper }}[{{ if eq .Status "firing"
-    }}告警{{ else }}恢复{{ end }}] {{
-    .GroupLabels.SortedPairs.Values | join " " }} {{ if gt (len .CommonLabels)
-    (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{
-    .Values | join " " }}{{ end }}){{ end }}{{ end }}
+    #告警消息标题
+    title=prometheus
+    {{ define "__subject" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.SortedPairs.Values | join " " }} {{ if gt (len .CommonLabels) (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{ .Values | join " " }}{{ end }}){{ end }}{{ end }}
+    {{ define "__alertmanagerURL" }}{{ .ExternalURL }}/#/alerts?receiver={{ .Receiver }}{{ end }}
 
-    {{ define "__alertmanagerURL" }}{{ .ExternalURL }}/#/alerts?receiver={{
-    .Receiver }}{{ end }}
-
-
-    {{ define "__text_alert_list" }}
-
-    {{ if eq .Status "firing" }}
-
-    {{ range .Alerts.Firing }}
-
-    **告警**
-
-    {{ range .Labels.SortedPairs }}
-
-    {{ if eq .Name "cluster"}}Cluster: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "namespace"}}Namespace: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "deployment"}}App_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "container_name"}}contain_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "pod"}}pod_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "daemonset"}}daemonset_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "statefulset"}}statefulset_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "severity"}}Severity: {{ .Value|markdown|html }}{{ end }}
-
+    {{ define "__text_alert_list" }}{{ range . }}
+    **Labels**
+    {{ range .Labels.SortedPairs }}> - {{ .Name }}: {{ .Value | markdown | html }}
     {{ end }}
-
-    **告警详情**
-
-    {{ range .Annotations.SortedPairs }}
-
-    {{ if eq .Name "description"}}description: {{ .Value|markdown|html }}{{ end }}
-    {{ if eq .Name "message"}}description: {{ .Value|markdown|html }}{{ end }}
-
+    **Annotations**
+    {{ range .Annotations.SortedPairs }}> - {{ .Name }}: {{ .Value | markdown | html }}
+    {{ end }}
+    **Source:** [{{ .GeneratorURL }}]({{ .GeneratorURL }})
     {{ end }}{{ end }}
 
+    {{ define "default.__text_alert_list" }}{{ range . }}
+    #### \[{{ .Labels.severity | upper }}\] {{ .Annotations.summary }}
 
-    {{ else if eq .Status "resolved" }}
+    **Description:** {{ .Annotations.description }}
 
-    {{ range .Alerts.Resolved }}
+    **Graph:** [📈]({{ .GeneratorURL }})
 
-    **告警**
+    **Details:**
+    {{ range .Labels.SortedPairs }}{{ if and (ne (.Name) "severity") (ne (.Name) "summary") }}> - {{ .Name }}: {{ .Value | markdown | html }}
+    {{ end }}{{ end }}
+    {{ end }}{{ end }}
 
-    {{ range .Labels.SortedPairs }}
+    {{/* Default */}}
+    {{ define "default.title" }}{{ template "__subject" . }}{{ end }}
+    {{ define "default.content" }}#### \[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}\] **[{{ index .GroupLabels "alertname" }}]({{ template "__alertmanagerURL" . }})**
+    {{ if gt (len .Alerts.Firing) 0 -}}
+    **Alerts Firing**
+    {{ template "default.__text_alert_list" .Alerts.Firing }}
+    {{- end }}
+    {{ if gt (len .Alerts.Resolved) 0 -}}
+    **Alerts Resolved**
+    {{ template "default.__text_alert_list" .Alerts.Resolved }}
+    {{- end }}
+    {{- end }}
 
-    {{ if eq .Name "cluster"}}Cluster: {{ .Value|markdown|html }}{{ end }}
+    {{/* Legacy */}}
+    {{ define "legacy.title" }}{{ template "__subject" . }}{{ end }}
+    {{ define "legacy.content" }}#### \[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}\] **[{{ index .GroupLabels "alertname" }}]({{ template "__alertmanagerURL" . }})**
+    {{ template "__text_alert_list" .Alerts.Firing }}
+    {{- end }}
 
-    {{ if eq .Name "namespace"}}Namespace: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "deployment"}}App_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "container_name"}}contain_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "pod"}}pod_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "daemonset"}}daemonset_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "statefulset"}}statefulset_name: {{ .Value|markdown|html }}{{ end }}
-
-    {{ if eq .Name "severity"}}Severity: {{ .Value|markdown|html }}{{ end }}
-
-    {{ end }}
-
-    **详情**
-
-    {{ range .Annotations.SortedPairs }}
-
-    {{ if eq .Name "description"}}description: {{ .Value|markdown|html }}{{ end }}
-    {{ if eq .Name "message"}}description: {{ .Value|markdown|html }}{{ end }}
-
-    {{ end }}
-
-    {{ end }}
-
-    {{ end }}
-
-    {{ end }}
-
-
-
-    {{ define "ding.link.title" }}{{ template "__subject" . }}{{ end }}
-
-    {{ define "ding.link.content" }}#### [{{ if eq .Status "firing" }}告警:{{
-    .Alerts.Firing | len }}{{ else }}恢复:{{ end }}] **{{ index .GroupLabels
-    "alertname" }}**
-
-    {{ template "__text_alert_list" . }}
-
-    {{ end }}
+    {{/* Following names for compatibility */}}
+    {{ define "ding.link.title" }}{{ template "default.title" . }}{{ end }}
+    {{ define "ding.link.content" }}{{ template "default.content" . }}{{ end }}
 kind: ConfigMap
 apiVersion: v1
 metadata:
