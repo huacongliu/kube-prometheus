@@ -8,3 +8,4 @@ quay.io/prometheus/alertmanager:v0.20.0
 quay.io/prometheus/node-exporter:v0.18.1
 quay.io/prometheus/prometheus:v2.15.2
 quay.io/external_storage/nfs-client-provisioner:latest
+jimmidyson/configmap-reload:v0.3.0
