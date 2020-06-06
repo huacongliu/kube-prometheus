@@ -1,6 +1,7 @@
-kubectl delete -f dingtalk-config.yaml
-kubectl create configmap dingding --from-file=dingtalk.tmpl -n monitoring
+#kubectl delete -f dingtalk-config.yaml
 #kubectl apply -f dingtalk-config.yaml
+kubectl delete configmap dingding -n monitoring >/dev/null 2>&1
+kubectl create configmap dingding --from-file=dingtalk.tmpl -n monitoring
 kubectl delete -f dingtalk-hook.yaml
 kubectl apply -f dingtalk-hook.yaml
 
