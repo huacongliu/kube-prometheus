@@ -1,6 +1,6 @@
 global:
   resolve_timeout: 5m
-  title: prometheus
+  #title: prometheus
 # 自定义 通知的模板的 目录 或者 文件.
 #templates:
 #  - "/etc/alertmanager/config/dingtalk.tmpl" ##注意：此路径不能更改 
