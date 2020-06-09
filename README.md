@@ -73,14 +73,15 @@ kubectl describe pod  prometheus-k8s-0 -n monitoring |grep prometheus:v |awk -F:
 cd kube-prometheus/manifests/add/upgrade
 sh upgrade.sh
 ```
+## 告警配置
 
-####老方法开启业微信告警,支持自定义模板
+#### 老方法开启业微信告警,支持自定义模板
 ```bash
 cd kube-prometheus/manifests/add/alert/wechat
 sh install.sh
 ```
 
-####老方法开启钉钉告警,支持自定义模板
+#### 老方法开启钉钉告警,支持自定义模板
 ##### 告警采用开源项目https://github.com/timonwong/prometheus-webhook-dingtalk 实现
 ```bash
 cd kube-prometheus/manifests/add/alert/dingtalk
