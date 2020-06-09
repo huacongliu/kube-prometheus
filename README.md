@@ -74,8 +74,21 @@ cd kube-prometheus/manifests/add/upgrade
 sh upgrade.sh
 ```
 
-#### 开启企业微信、钉钉告警
-###### 告警采用https://github.com/feiyu563/PrometheusAlert 
+####老方法开启业微信告警,支持自定义模板
+```bash
+cd kube-prometheus/manifests/add/alert/wechat
+sh install.sh
+```
+
+####老方法开启钉钉告警,支持自定义模板
+##### 告警采用开源项目https://github.com/timonwong/prometheus-webhook-dingtalk 实现
+```bash
+cd kube-prometheus/manifests/add/alert/dingtalk
+sh install.sh
+```
+
+#### 同时开启企业微信、钉钉告警
+###### 告警采用开源项目https://github.com/feiyu563/PrometheusAlert 实现
 ```bash
 cd kube-prometheus/manifests/add/prometheusalert
 先编辑conf.txt,填入相应的key或token，
